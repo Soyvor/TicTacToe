@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tic Tac Toe</title>
+	<style>
+		button {
+			font-size: 24px;
+			width: 80px;
+			height: 80px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Tic Tac Toe</h1>
+	<p>Player 1 (X) goes first.</p>
+	<table>
+		<tr>
+			<td><button id="0"></button></td>
+			<td><button id="1"></button></td>
+			<td><button id="2"></button></td>
+		</tr>
+		<tr>
+			<td><button id="3"></button></td>
+			<td><button id="4"></button></td>
+			<td><button id="5"></button></td>
+		</tr>
+		<tr>
+			<td><button id="6"></button></td>
+			<td><button id="7"></button></td>
+			<td><button id="8"></button></td>
+		</tr>
+	</table>
+
+	<script>
+		// Initialize variables for the game
+		let currentPlayer = "X";
+		let gameBoard = ["", "", "", "", "", "", "", "", ""];
+
+		// Add event listeners to each button
+		let buttons = document.getElementsByTagName("button");
+		for (let i = 0; i < buttons.length; i++) {
+			buttons[i].addEventListener("click", function() {
+				// If the button has not already been clicked
+				if (gameBoard[i] === "") {
+					// Set the button text to the current player's symbol
+					buttons[i].textContent = currentPlayer;
+
+					// Update the game board and check for a win
+					gameBoard[i] = currentPlayer;
+					if (checkWin()) {
+						alert(currentPlayer + " wins!");
+						resetBoard();
+						return;
+					}
+
+					// If there are no more empty spaces on the board, the game is a tie
+					if (!gameBoard.includes("")) {
+						alert("Tie game!");
+						resetBoard();
+						return;
+					}
+
+					// Switch to the next player
+					currentPlayer = currentPlayer === "X" ? "O" : "X";
+				}
+			});
+		}
+
+		// Check for a win by looking for three in a row
+		function checkWin() {
+			if (gameBoard[0] !== "" && gameBoard[0] === gameBoard[1] && gameBoard[1] === gameBoard[2]) {
+				return true;
+			} else if (gameBoard[3] !== "" && gameBoard[3] === gameBoard[4] && gameBoard[4] === gameBoard[5]) {
+				return true;
+			} else if (gameBoard[6] !== "" && gameBoard[6] === gameBoard[7] && gameBoard[7] === gameBoard[8]) {
+				return true;
+			} else if (gameBoard[0] !== "" && gameBoard[0] === gameBoard[3] && gameBoard[3] === gameBoard[6]) {
+				return true;
+			} else if (gameBoard[1] !== "" && gameBoard[1]=== gameBoard[4] && gameBoard[4] === gameBoard[7]) {
+return true;
+} else if (gameBoard[2] !== "" && gameBoard[2] === gameBoard[5] && gameBoard[5] === gameBoard[8]) {
+return true;
+} else if (gameBoard[0] !== "" && gameBoard[0] === gameBoard[4] && gameBoard[4] === gameBoard[8]) {
+return true;
+} else if (gameBoard[2] !== "" && gameBoard[2] === gameBoard[4] && gameBoard[4] === gameBoard[6]) {
+return true;
+} else {
+return false;
+}
+}
+	// Reset the game board and the current player
+	function resetBoard() {
+		currentPlayer = "X";
+		gameBoard = ["", "", "", "", "", "", "", "", ""];
+		for (let i = 0; i < buttons.length; i++) {
+			buttons[i].textContent = "";
+		}
+	}
+</script>
+</body>
+</html>
